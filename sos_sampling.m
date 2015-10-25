@@ -5,8 +5,8 @@ checkDependency('mosek');
 
 % Our free space is the set [-2, -1] + [1, 2]
 x = msspoly('x', 1);
-obstacles = {-(x-3)^2 + 1,...
-             -(x+3)^2 + 1,...
+obstacles = {x - 2,...
+             -x - 2,...
              -x^2 + 1};
 
 prog = spotsosprog();
@@ -15,7 +15,7 @@ prog = prog.withIndeterminate(x);
 mon = monomials(x, 0:4);
 V = V_coeffs' * mon;
 
-sample_points = linspace(-2, 2, 20);
+sample_points = linspace(-2, 2, 10);
 [prog, sample_costs] = prog.newFree(numel(sample_points));
 
 for j = 1:length(sample_points)
